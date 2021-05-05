@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="routineFormGroup" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" formControlName="name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="goal">Fitness Goal</label>
+                        <select id="goal" formControlName="goal" class="form-control">
+                            <option *ngFor="let key of goalKeys" [value]="fitnessGoal[key]">{{ fitnessGoal[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="level">Training Level</label>
+                        <select id="level" formControlName="level" class="form-control">
+                            <option *ngFor="let key of levelKeys" [value]="trainingLevel[key]">{{ trainingLevel[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="text" id="startDate" formControlName="startDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="text" id="endDate" formControlName="endDate" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" formControlName="notes" class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row" formArrayName="workouts">
+                <ul class="list-group">
+                    <div *ngFor="let workout of workouts; let i = index" [formGroupName]="i">
+                        <div class="col-xs-9">
+                            <li class="list-group-item clearfix">
+                                <div class="col-xs-6">
+                                    <p class="pull-right form-control-static">{{ workout.day }}</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="form-control-static">{{ workout.target }}</p>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" class="btn btn-primary" (click)="onEditWorkout(i)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" class="btn btn-danger" (click)="onDeleteWorkout(i)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+                </ul>
+                <div class="col-xs-6">
+                    <button
+                    type="button"
+                    class="btn btn-success btn-workouts"
+                    (click)="onAddWorkout()">Add Workout</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary" [disabled]="!routineFormGroup.valid">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

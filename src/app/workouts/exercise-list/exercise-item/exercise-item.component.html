@@ -1,0 +1,14 @@
+<button type="button" class="list-group-item" appAccordion>
+    {{ exercise.name }}
+</button>
+<div class="panel panel-default panel-accordion list-group-item">
+    <div class="panel-body">
+        <p>Exercise Type: {{ exercise.type }}</p>
+        <p>Muscle Group: {{ exercise.group }}</p>
+        <p>Exercise Equipment: {{ exercise.equipment }}</p>
+        <p>Training Level: {{ exercise.level }}</p>
+    </div>
+    <div class="pull-right select-btn">
+        <button type="button" class="btn btn-success" (click)="onNewCustom()">Select</button>
+    </div>
+</div>

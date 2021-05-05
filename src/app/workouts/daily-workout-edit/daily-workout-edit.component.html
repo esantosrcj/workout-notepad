@@ -1,0 +1,118 @@
+<div *ngIf="!editMode">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-default" role="button" [routerLink]="['../../edit']">
+                <span class="glyphicon glyphicon-chevron-left"></span> Back
+            </a>
+        </div>
+    </div>
+    <hr>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="workoutFormGroup" (ngSubmit)="onSubmit()">
+            <div class="row" *ngIf="!hideNameDuration">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="name" class="control-label">Name</label>
+                        <div>
+                            <p class="form-control-static">{{ workoutName }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="duration" class="control-label">Duration</label>
+                        <div>
+                            <p class="form-control-static">{{ workoutDuration }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="day">Day</label>
+                        <div>
+                            <select id="day" formControlName="day" class="form-control">
+                                <option *ngFor="let key of dayKeys" [value]="weekday[key]">{{ weekday[key] }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="target">Body Target</label>
+                        <div>
+                            <select id="target" formControlName="target" class="form-control">
+                                <option *ngFor="let key of targetKeys" [value]="bodyTarget[key]">{{ bodyTarget[key] }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div *ngIf="editMode">
+                <div class="row" formArrayName="exercises">
+                    <ul class="list-group">
+                        <div *ngFor="let exerciseCtrl of controls; let i = index" [formGroupName]="i">
+                            <div class="col-xs-9">
+                                <li class="list-group-item clearfix">
+                                    <p class="col-xs-7 list-group-item-text">{{ exerciseNames[i] }}</p>
+                                    <div class="form-group">
+                                        <label for="order" class="col-xs-2 control-label">Order</label>
+                                        <div class="col-xs-3">
+                                            <input type="number" id="order" formControlName="order" class="form-control">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="id" formControlName="id" class="form-control">
+                                    <input type="hidden" id="sets" formControlName="sets" class="form-control">
+                                    <input type="hidden" id="reps" formControlName="reps" class="form-control">
+                                    <input type="hidden" id="active" formControlName="active" class="form-control">
+                                    <input type="hidden" id="rest" formControlName="rest" class="form-control">
+                                    <!-- EXERCISE -->
+                                    <div class="row" formGroupName="exercise">
+                                        <input type="hidden" id="id" formControlName="id" class="form-control">
+                                        <input type="hidden" id="name" formControlName="name" class="form-control">
+                                        <input type="hidden" id="type" formControlName="type" class="form-control">
+                                        <input type="hidden" id="group" formControlName="group" class="form-control">
+                                        <input type="hidden" id="equipment" formControlName="equipment" class="form-control">
+                                        <input type="hidden" id="level" formControlName="level" class="form-control">
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="btn btn-primary" (click)="onEditCustom(i)">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="btn btn-danger" (click)="onDeleteCustom(i)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="col-xs-6">
+                        <button
+                        type="button"
+                        class="btn btn-success btn-customs"
+                        (click)="onAddCustom()">Add Exercise</button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div *ngIf="!editMode; else elseBlock">
+                        <button type="button" class="btn btn-success" (click)="onAddWorkout()" [disabled]="!workoutFormGroup.valid">Add Workout</button>
+                    </div>
+                    <ng-template #elseBlock>
+                        <button type="submit" class="btn btn-primary" [disabled]="!workoutFormGroup.valid">Save</button>
+                        <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-xs-12">
+        <a class="btn btn-default" role="button" [routerLink]="['../../']">
+            <span class="glyphicon glyphicon-chevron-left"></span> Back
+        </a>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <h1>{{ dailyWorkout.name }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+            Day: {{ dailyWorkout.day }}
+        </p>
+        <p>
+            Body Target: {{ dailyWorkout.target }}
+        </p>
+        <p>
+            Workout Duration (Minutes): {{ dailyWorkout.duration }}
+        </p>
+        <p *ngIf="customExercises.length">
+            Exercises:
+        </p>
+        <div class="row">
+            <div class="col-xs-12">
+                <app-custom-exercise-item
+                *ngFor="let c of customExercises"
+                [customExercise]="c"
+                [exercise]="c.exercise"></app-custom-exercise-item>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group" appDropdown>
+            <button
+            type="button"
+            class="btn btn-primary dropdown-toggle">
+            Manage Workout <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a (click)="onViewActivityHistory()" style="cursor: pointer;">View Activity History</a></li>
+                <li><a style="cursor: pointer;" (click)="onEditWorkout()">Edit Workout</a></li>
+                <li><a style="cursor: pointer;" (click)="onDeleteWorkout()">Delete Workout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

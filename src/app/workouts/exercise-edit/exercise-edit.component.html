@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="exerciseFormGroup" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" formControlName="name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="type">Exercise Type</label>
+                        <select id="type" formControlName="type" class="form-control">
+                            <option *ngFor="let key of typeKeys" [value]="exerciseType[key]">{{ exerciseType[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="group">Muscle Group</label>
+                        <select id="group" formControlName="group" class="form-control">
+                            <option *ngFor="let key of groupKeys" [value]="muscleGroup[key]">{{ muscleGroup[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="equipment">Exercise Equipment</label>
+                        <select id="equipment" formControlName="equipment" class="form-control">
+                            <option *ngFor="let key of equipmentKeys" [value]="exerciseEquipment[key]">{{ exerciseEquipment[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="level">Training Level</label>
+                        <select id="level" formControlName="level" class="form-control">
+                            <option *ngFor="let key of levelKeys" [value]="trainingLevel[key]">{{ trainingLevel[key] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary" [disabled]="!exerciseFormGroup.valid">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

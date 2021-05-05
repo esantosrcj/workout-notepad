@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-primary" (click)="onNewWorkout()">New Workout</button>
+        <button type="button" class="btn btn-success" (click)="onNewExercise()">New Exercise</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <app-daily-workout-item
+        *ngFor="let d of dailyWorkouts"
+        [dailyWorkout]="d"></app-daily-workout-item>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<div *ngIf="newExercise && !orderQueryParamExists">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-default" role="button" [routerLink]="['../../../']">
+                <span class="glyphicon glyphicon-chevron-left"></span> Back
+            </a>
+        </div>
+    </div>
+    <hr>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="customExerciseFormGroup" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <input type="hidden" id="order" formControlName="order" class="form-control">
+                <input type="hidden" id="workoutId" formControlName="workoutId" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="sets">Number of Sets</label>
+                        <input type="number" id="sets" formControlName="sets" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="reps">Exercise Reps</label>
+                        <input type="text" id="reps" formControlName="reps" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="active">Time Active (Seconds)</label>
+                        <input type="number" id="active" formControlName="active" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="rest">Rest Time (Seconds)</label>
+                        <input type="number" id="rest" formControlName="rest" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div formGroupName="exercise">
+                <div class="form-group">
+                    <input type="hidden" id="id" formControlName="id" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" formControlName="name" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="type">Exercise Type</label>
+                            <input type="text" id="type" formControlName="type" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="group">Muscle Group</label>
+                            <input type="text" id="group" formControlName="group" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="equipment">Exercise Equipment</label>
+                            <input type="text" id="equipment" formControlName="equipment" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="level">Training Level</label>
+                            <input type="text" id="level" formControlName="level" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div *ngIf="newExercise && !orderQueryParamExists; else elseBlock">
+                        <button type="button" class="btn btn-success" (click)="onAddExercise()" [disabled]="!customExerciseFormGroup.valid">Add Exercise</button>
+                    </div>
+                    <ng-template #elseBlock>
+                        <button type="submit" class="btn btn-primary" [disabled]="!customExerciseFormGroup.valid">Save</button>
+                        <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

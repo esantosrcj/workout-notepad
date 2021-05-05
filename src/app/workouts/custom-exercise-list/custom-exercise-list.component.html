@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button" class="btn btn-primary" (click)="onCustomExercise()">Custom Exercise</button>
+        <button type="button" class="btn btn-success" (click)="onNewExercise()">New Exercise</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <app-custom-exercise-item
+        *ngFor="let c of customExercises"
+        [customExercise]="c"></app-custom-exercise-item>
+    </div>
+</div>

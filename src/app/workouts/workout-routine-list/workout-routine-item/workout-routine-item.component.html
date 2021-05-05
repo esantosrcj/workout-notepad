@@ -1,0 +1,10 @@
+<a
+style="cursor: pointer;"
+[routerLink]="['workout-routine', workoutRoutine.id]"
+routerLinkActive="active"
+class="list-group-item clearfix">
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ workoutRoutine.name }}</h4>
+        <p class="list-group-item-text">{{ workoutRoutine.notes }}</p>
+    </div>
+</a>
