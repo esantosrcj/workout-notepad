@@ -79,7 +79,6 @@ export class ExerciseEditComponent implements OnInit {
       exercise.id = this.id;
       this.workoutService.updateExercise(exercise);
     } else {
-      exercise.id = 0;
       this.dataStorageService.storeExercise(exercise);
     }
     this.onCancel();
