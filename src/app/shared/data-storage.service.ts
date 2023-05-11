@@ -8,32 +8,34 @@ import { CustomExercise } from '../workouts/models/custom-exercise.model';
 import { DailyWorkout } from '../workouts/models/daily-workout.model';
 import { WorkoutRoutine } from '../workouts/models/workout-routine.model';
 
+const apiUrl = process.env.WORKOUT_API;
+
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
 
-    constructor(private http: HttpClient, private workoutService: WorkoutService) {}
+    constructor(private http: HttpClient, private workoutService: WorkoutService) { }
 
     /*
     * Exercises API
     */
     storeExercise(newExercise: Exercise) {
         this.http
-        .post<Exercise>('http://localhost:8080/api/exercises', newExercise)
-        .subscribe(exercise => {
-            this.workoutService.addExercise(exercise);
-        });
+            .post<Exercise>(`${apiUrl}/exercises`, newExercise)
+            .subscribe(exercise => {
+                this.workoutService.addExercise(exercise);
+            });
     }
 
     fetchExercises() {
         return this.http
-        .get<Exercise[]>('http://localhost:8080/api/exercises')
-        .pipe(map(exercises => {
-            return exercises.map(exercise => {
-                return { ...exercise };
-            });
-        }), tap(exercises => {
-            this.workoutService.setExercises(exercises);
-        }));
+            .get<Exercise[]>(`${apiUrl}/exercises`)
+            .pipe(map(exercises => {
+                return exercises.map(exercise => {
+                    return { ...exercise };
+                });
+            }), tap(exercises => {
+                this.workoutService.setExercises(exercises);
+            }));
     }
 
     /*
@@ -41,30 +43,30 @@ export class DataStorageService {
     */
     storeCustomExercise(newCustomExercise: CustomExercise) {
         this.http
-        .post<CustomExercise>('http://localhost:8080/api/custom-exercises', newCustomExercise)
-        .subscribe(customExercise => {
-            this.workoutService.addCustomExercise(customExercise);
-        });
+            .post<CustomExercise>(`${apiUrl}/custom-exercises`, newCustomExercise)
+            .subscribe(customExercise => {
+                this.workoutService.addCustomExercise(customExercise);
+            });
     }
 
     updateCustomExercise(currCustomExercise: CustomExercise) {
         this.http
-        .put<CustomExercise>('http://localhost:8080/api/custom-exercises', currCustomExercise)
-        .subscribe(customExercise => {
-            this.workoutService.updateCustomExercise(customExercise);
-        });
+            .put<CustomExercise>(`${apiUrl}/custom-exercises`, currCustomExercise)
+            .subscribe(customExercise => {
+                this.workoutService.updateCustomExercise(customExercise);
+            });
     }
 
     fetchCustomExercises() {
         return this.http
-        .get<CustomExercise[]>('http://localhost:8080/api/custom-exercises')
-        .pipe(map(customExercises => {
-            return customExercises.map(customExercise => {
-                return { ...customExercise };
-            });
-        }), tap(customExercises => {
-            this.workoutService.setCustomExercises(customExercises);
-        }));
+            .get<CustomExercise[]>(`${apiUrl}/custom-exercises`)
+            .pipe(map(customExercises => {
+                return customExercises.map(customExercise => {
+                    return { ...customExercise };
+                });
+            }), tap(customExercises => {
+                this.workoutService.setCustomExercises(customExercises);
+            }));
     }
 
     /*
@@ -72,34 +74,34 @@ export class DataStorageService {
     */
     storeDailyWorkout(newDailyWorkout: DailyWorkout) {
         this.http
-        .post<DailyWorkout>('http://localhost:8080/api/workouts', newDailyWorkout)
-        .subscribe(dailyWorkout => {
-            const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
-            dailyWorkout.exercises = updatedOrder;
-            this.workoutService.addDailyWorkout(dailyWorkout);
-        });
+            .post<DailyWorkout>(`${apiUrl}/workouts`, newDailyWorkout)
+            .subscribe(dailyWorkout => {
+                const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
+                dailyWorkout.exercises = updatedOrder;
+                this.workoutService.addDailyWorkout(dailyWorkout);
+            });
     }
 
     updateDailyWorkout(currDailyWorkout: DailyWorkout) {
         this.http
-        .put<DailyWorkout>('http://localhost:8080/api/workouts', currDailyWorkout)
-        .subscribe(dailyWorkout => {
-            const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
-            dailyWorkout.exercises = updatedOrder;
-            this.workoutService.updateDailyWorkout(dailyWorkout);
-        });
+            .put<DailyWorkout>(`${apiUrl}/workouts`, currDailyWorkout)
+            .subscribe(dailyWorkout => {
+                const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
+                dailyWorkout.exercises = updatedOrder;
+                this.workoutService.updateDailyWorkout(dailyWorkout);
+            });
     }
 
     fetchDailyWorkouts() {
         return this.http
-        .get<DailyWorkout[]>('http://localhost:8080/api/workouts')
-        .pipe(map(dailyWorkouts => {
-            return dailyWorkouts.map(dailyWorkout => {
-                return { ...dailyWorkout };
-            });
-        }), tap(dailyWorkouts => {
-            this.workoutService.setDailyWorkouts(dailyWorkouts);
-        }));
+            .get<DailyWorkout[]>(`${apiUrl}/workouts`)
+            .pipe(map(dailyWorkouts => {
+                return dailyWorkouts.map(dailyWorkout => {
+                    return { ...dailyWorkout };
+                });
+            }), tap(dailyWorkouts => {
+                this.workoutService.setDailyWorkouts(dailyWorkouts);
+            }));
     }
 
     /*
@@ -107,34 +109,34 @@ export class DataStorageService {
     */
     storeWorkoutRoutine(newWorkoutRoutine: WorkoutRoutine) {
         this.http
-        .post<WorkoutRoutine>('http://localhost:8080/api/routines', newWorkoutRoutine)
-        .subscribe(workoutRoutine => {
-            this.workoutService.addWorkoutRoutine(workoutRoutine);
-        });
+            .post<WorkoutRoutine>(`${apiUrl}/routines`, newWorkoutRoutine)
+            .subscribe(workoutRoutine => {
+                this.workoutService.addWorkoutRoutine(workoutRoutine);
+            });
     }
 
     updateWorkoutRoutine(currWorkoutRoutine: WorkoutRoutine) {
         this.http
-        .put<WorkoutRoutine>('http://localhost:8080/api/routines', currWorkoutRoutine)
-        .subscribe(workoutRoutine => {
-            const updatedOrder = this.updateDailyWorkoutOrder(workoutRoutine.workouts);
-            workoutRoutine.workouts = updatedOrder;
-            this.workoutService.updateWorkoutRoutine(workoutRoutine);
-        });
+            .put<WorkoutRoutine>(`${apiUrl}/routines`, currWorkoutRoutine)
+            .subscribe(workoutRoutine => {
+                const updatedOrder = this.updateDailyWorkoutOrder(workoutRoutine.workouts);
+                workoutRoutine.workouts = updatedOrder;
+                this.workoutService.updateWorkoutRoutine(workoutRoutine);
+            });
     }
 
     fetchWorkoutRoutines() {
         return this.http
-        .get<WorkoutRoutine[]>('http://localhost:8080/api/routines')
-        .pipe(map(workoutRoutines => {
-            return workoutRoutines.map(workoutRoutine => {
-                return { ...workoutRoutine };
-            });
-        }), tap(workoutRoutines => {
-            console.log("WORKOUT ROUTINES");
-            console.log(workoutRoutines);
-            this.workoutService.setWorkoutRoutines(workoutRoutines);
-        }));
+            .get<WorkoutRoutine[]>(`${apiUrl}/routines`)
+            .pipe(map(workoutRoutines => {
+                return workoutRoutines.map(workoutRoutine => {
+                    return { ...workoutRoutine };
+                });
+            }), tap(workoutRoutines => {
+                console.log("WORKOUT ROUTINES");
+                console.log(workoutRoutines);
+                this.workoutService.setWorkoutRoutines(workoutRoutines);
+            }));
     }
 
     updateCustomExerciseOrder(exercises: CustomExercise[]): CustomExercise[] {
