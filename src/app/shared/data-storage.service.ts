@@ -8,8 +8,6 @@ import { CustomExercise } from '../workouts/models/custom-exercise.model';
 import { DailyWorkout } from '../workouts/models/daily-workout.model';
 import { WorkoutRoutine } from '../workouts/models/workout-routine.model';
 
-const apiUrl = process.env.WORKOUT_API;
-
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
 
@@ -20,7 +18,7 @@ export class DataStorageService {
     */
     storeExercise(newExercise: Exercise) {
         this.http
-            .post<Exercise>(`${apiUrl}/exercises`, newExercise)
+            .post<Exercise>('http://localhost:5000/api/v1/exercises', newExercise)
             .subscribe(exercise => {
                 this.workoutService.addExercise(exercise);
             });
@@ -28,7 +26,7 @@ export class DataStorageService {
 
     fetchExercises() {
         return this.http
-            .get<Exercise[]>(`${apiUrl}/exercises`)
+            .get<Exercise[]>('http://localhost:5000/api/v1/exercises')
             .pipe(map(exercises => {
                 return exercises.map(exercise => {
                     return { ...exercise };
@@ -43,7 +41,7 @@ export class DataStorageService {
     */
     storeCustomExercise(newCustomExercise: CustomExercise) {
         this.http
-            .post<CustomExercise>(`${apiUrl}/custom-exercises`, newCustomExercise)
+            .post<CustomExercise>('http://localhost:5000/api/v1/custom-exercises', newCustomExercise)
             .subscribe(customExercise => {
                 this.workoutService.addCustomExercise(customExercise);
             });
@@ -51,7 +49,7 @@ export class DataStorageService {
 
     updateCustomExercise(currCustomExercise: CustomExercise) {
         this.http
-            .put<CustomExercise>(`${apiUrl}/custom-exercises`, currCustomExercise)
+            .put<CustomExercise>('http://localhost:5000/api/v1/custom-exercises', currCustomExercise)
             .subscribe(customExercise => {
                 this.workoutService.updateCustomExercise(customExercise);
             });
@@ -59,7 +57,7 @@ export class DataStorageService {
 
     fetchCustomExercises() {
         return this.http
-            .get<CustomExercise[]>(`${apiUrl}/custom-exercises`)
+            .get<CustomExercise[]>('http://localhost:5000/api/v1/custom-exercises')
             .pipe(map(customExercises => {
                 return customExercises.map(customExercise => {
                     return { ...customExercise };
@@ -74,7 +72,7 @@ export class DataStorageService {
     */
     storeDailyWorkout(newDailyWorkout: DailyWorkout) {
         this.http
-            .post<DailyWorkout>(`${apiUrl}/workouts`, newDailyWorkout)
+            .post<DailyWorkout>('http://localhost:5000/api/v1/workouts', newDailyWorkout)
             .subscribe(dailyWorkout => {
                 const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
                 dailyWorkout.exercises = updatedOrder;
@@ -84,7 +82,7 @@ export class DataStorageService {
 
     updateDailyWorkout(currDailyWorkout: DailyWorkout) {
         this.http
-            .put<DailyWorkout>(`${apiUrl}/workouts`, currDailyWorkout)
+            .put<DailyWorkout>('http://localhost:5000/api/v1/workouts', currDailyWorkout)
             .subscribe(dailyWorkout => {
                 const updatedOrder = this.updateCustomExerciseOrder(dailyWorkout.exercises);
                 dailyWorkout.exercises = updatedOrder;
@@ -94,7 +92,7 @@ export class DataStorageService {
 
     fetchDailyWorkouts() {
         return this.http
-            .get<DailyWorkout[]>(`${apiUrl}/workouts`)
+            .get<DailyWorkout[]>('http://localhost:5000/api/v1/workouts')
             .pipe(map(dailyWorkouts => {
                 return dailyWorkouts.map(dailyWorkout => {
                     return { ...dailyWorkout };
@@ -109,7 +107,7 @@ export class DataStorageService {
     */
     storeWorkoutRoutine(newWorkoutRoutine: WorkoutRoutine) {
         this.http
-            .post<WorkoutRoutine>(`${apiUrl}/routines`, newWorkoutRoutine)
+            .post<WorkoutRoutine>('http://localhost:5000/api/v1/routines', newWorkoutRoutine)
             .subscribe(workoutRoutine => {
                 this.workoutService.addWorkoutRoutine(workoutRoutine);
             });
@@ -117,7 +115,7 @@ export class DataStorageService {
 
     updateWorkoutRoutine(currWorkoutRoutine: WorkoutRoutine) {
         this.http
-            .put<WorkoutRoutine>(`${apiUrl}/routines`, currWorkoutRoutine)
+            .put<WorkoutRoutine>('http://localhost:5000/api/v1/routines', currWorkoutRoutine)
             .subscribe(workoutRoutine => {
                 const updatedOrder = this.updateDailyWorkoutOrder(workoutRoutine.workouts);
                 workoutRoutine.workouts = updatedOrder;
@@ -127,7 +125,7 @@ export class DataStorageService {
 
     fetchWorkoutRoutines() {
         return this.http
-            .get<WorkoutRoutine[]>(`${apiUrl}/routines`)
+            .get<WorkoutRoutine[]>('http://localhost:5000/api/v1/routines')
             .pipe(map(workoutRoutines => {
                 return workoutRoutines.map(workoutRoutine => {
                     return { ...workoutRoutine };

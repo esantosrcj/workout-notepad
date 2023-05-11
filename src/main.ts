@@ -8,9 +8,5 @@ if (environment.production) {
   enableProdMode();
 }
 
-// Load the .env variables
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
