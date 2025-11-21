@@ -1,27 +1,73 @@
-# WorkoutNotepad
+# Workout Notepad
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+A full-stack SvelteKit application with PocketBase backend integration, featuring user authentication and routine management capabilities.
 
-## Development server
+## Project Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+**Workout Notepad** (v1.0.0) is a modern web application built with SvelteKit and TypeScript, utilizing PocketBase as its backend service. The application provides user authentication flows and routine management features with a polished UI powered by Skeleton UI and Tailwind CSS.
 
-## Code scaffolding
+### Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Framework:** SvelteKit 2.5.21
+- **Language:** TypeScript 5.0
+- **Backend:** PocketBase 0.21.4
+- **UI Framework:** Skeleton Labs 2.10.2
+- **Styling:** Tailwind CSS 3.4.9 + Tailwind Forms
+- **Icons:** Iconify Svelte
+- **Build Tool:** Vite 5.0.3
+- **Testing:** Playwright + Vitest
+- **Deployment:** Node.js adapter
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Prerequisites
 
-## Running unit tests
+- Node.js (v18 or higher recommended)
+- npm, pnpm, or yarn
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Installation
 
-## Running end-to-end tests
+1. Clone the repository
+2. Install dependencies:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```bash
+npm install
+```
 
-## Further help
+## Development
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Start the development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Code Quality
+
+The project enforces code quality through:
+
+- **ESLint** - JavaScript/TypeScript linting
+- **Prettier** - Code formatting with plugins for Svelte, imports, and Tailwind
+- **svelte-check** - Svelte-specific type checking
+- **TypeScript** - Strict mode enabled
+
+## Styling
+
+The project uses a combination of:
+
+- **Tailwind CSS** - Utility-first CSS framework
+- **Skeleton Labs** - UI component library with "skeleton" and "rocket" themes
+- **@tailwindcss/forms** - Better form styling
+- **PostCSS** - CSS processing
+
+## PocketBase Integration
+
+The application integrates with PocketBase through server hooks (`hooks.server.ts`):
+
+- Initializes PocketBase client on each request
+- Manages authentication cookies
+- Auto-refreshes auth tokens
+- Provides `event.locals.pb` to all server load functions
